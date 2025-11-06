@@ -6,11 +6,17 @@
     flex-direction: row;
 }
 
+.itemGrid {
+    background-color: rgb(248, 239, 239);
+    border-radius: 30px;
+    border-color: black;
+    padding: 10px;
+    margin: 10px;
+}
 @media (max-width:768px) {
     .resultDisplay {
         display: grid;
         grid-template-columns: auto;
-        
     }
 }
 

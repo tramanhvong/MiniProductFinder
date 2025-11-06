@@ -25,33 +25,44 @@ async function fetchAll() {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const result = response.json();
-    const data = JSON.parse(result);
-    for (var product of data.products) {
-            const item = document.createElement("div")
-            item.innerHTML = `<p>${product.category}\n$${product.price}\n${product.rating}\n${product.availabilityStatus}</p>`;
-
-            resultGrids.appendChild(item);
+    const data = await response.json();
+    const resultGrids = document.querySelector(".resultDisplay");
+    
+    for (const product of data.products) {
+      const item = document.createElement("div");
+      item.className = "itemGrid";
+      item.innerHTML = `<p>${product.category}</p>
+                        <p>$${product.price}</p>
+                        <p>${product.rating}</p>
+                        <p>${product.availabilityStatus}</p>`;
+      resultGrids.appendChild(item);
     }
   } catch (error) {
     console.error(error.message);
   }
 }
 
-function search() {
-        const keyword = document.getElementById("keyword").value;
+async function search() {
+  const keyword = document.getElementById("keyword").value;
 
-        fetch(specSearch +`${keyword}`)
-            .then((response) => response.json())
-            .then((data => {
-                const resultGrids = document.getElementById("resultDisplay");
-                for (const product of data.products) {
-                    const item = document.createElement("li");
-                    item.appendChild(document.createElement("strong")).textContent = product.title;
-                    item.appendChild(document.createElement("p")).innerHTML = `${product.category}\n$${product.price}\n${product.rating}\n${product.availabilityStatus}`;
+  try {
+    const response = await fetch(`${specSearch}${keyword}`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
 
-                    resultGrids.appendChild(item);
-                }
-            }))
-            .catch(console.error);
+    const data = await response.json();
+    const resultGrids = document.querySelector(".resultDisplay");
+    
+    for (const product of data.products) {
+      const item = document.createElement("div");
+      item.innerHTML = `<p>${product.category}</p>
+                        <p>$${product.price}</p>
+                        <p>${product.rating}</p>
+                        <p>${product.availabilityStatus}</p>`;
+      resultGrids.appendChild(item);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
 }
