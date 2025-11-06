@@ -31,7 +31,8 @@ async function fetchAll() {
     for (const product of data.products) {
       const item = document.createElement("div");
       item.className = "itemGrid";
-      item.innerHTML = `<p>${product.category}</p>
+      item.innerHTML = `<img href = ${product.images[0]} alt="Demo Image">
+                        <p>${product.category}</p>
                         <p>$${product.price}</p>
                         <p>${product.rating}</p>
                         <p>${product.availabilityStatus}</p>`;
@@ -43,10 +44,10 @@ async function fetchAll() {
 }
 
 async function search() {
-  const keyword = document.getElementById("keyword").value;
-
+  const keyword = document.getElementById("keyword").value.trim();
+  const url = specSearch + encodeURIComponent(keyword);
   try {
-    const response = await fetch(`${specSearch}${keyword}`);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -56,7 +57,8 @@ async function search() {
     
     for (const product of data.products) {
       const item = document.createElement("div");
-      item.innerHTML = `<p>${product.category}</p>
+      item.innerHTML = `<img href = ${product.images[0]} alt="Demo Image">
+                        <p>${product.category}</p>
                         <p>$${product.price}</p>
                         <p>${product.rating}</p>
                         <p>${product.availabilityStatus}</p>`;
