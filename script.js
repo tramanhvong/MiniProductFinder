@@ -44,10 +44,19 @@ async function fetchAll() {
 }
 
 async function search() {
-  const keyword = document.getElementById("keyword").value.trim();
-  const url = specSearch + encodeURIComponent(keyword);
+  const input = document.getElementById("keyword").value;
+  const keyword = input ? input.value.trim() : "";
+  let url;
+  if (!keyword) {
+    url = allSearch;
+  }
+  else {
+    url = specSearch + encodedURIComponent(keyword);
+  }
+  alert(url);
   try {
     const response = await fetch(url);
+    alert(response);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -57,7 +66,7 @@ async function search() {
     
     for (const product of data.products) {
       const item = document.createElement("div");
-      item.innerHTML = `<img href = ${product.images[0]} alt="Demo Image">
+      item.innerHTML = `<img src = ${product.images[0]} alt="Demo Image">
                         <p>${product.category}</p>
                         <p>$${product.price}</p>
                         <p>${product.rating}</p>
