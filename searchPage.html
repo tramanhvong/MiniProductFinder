@@ -15,12 +15,16 @@
             <form onchange="search()">
                 <label for="keyword">Search:</label>
                 <input type="text" id="keyword" name="keyword">
+
+                <select name="sort" id="sortOption" >
+                    <option value="sortPriceAsc">Price (low -> high)</option>
+                    <option value="sortPriceDesc">Price (high -> low)</option>
+                    <option value="sortRatingDesc">Rating (high -> low)</option>
+                </select>
+
+                <input type="checkbox" id="stock" name="stock">
+                <label for="stock">In stock only</label>
             </form>
-            <select name="sort" id="sortOption" >
-                <option value="sortPriceAsc">Price (low -> high)</option>
-                <option value="sortPriceDesc">Price (high -> low)</option>
-                <option value="sortRatingDesc">Rating (high -> low)</option>
-            </select>
         </div>
 
         <div class="resultDisplay">
