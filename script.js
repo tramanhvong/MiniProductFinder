@@ -7,7 +7,10 @@ window.onload = () => {
 };
 
 async function fetchAll() {
+  const loader = document.getElementById("loader");
+
   try {
+    loader.style.display = "block";
     const response = await fetch(allSearch);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -28,10 +31,14 @@ async function fetchAll() {
     }
   } catch (error) {
     console.error(error.message);
+  } finally {
+    loader.style.display = "none";
   }
 }
 
 async function search(e) {
+  const loader = document.getElementById("loader");
+  loader.style.display = "block";
   try {
     const keyword = e.target.value.trim();
     let url;
@@ -59,5 +66,7 @@ async function search(e) {
     }
   } catch (error) {
     console.error(error.message);
+  } finally {
+    loader.style.display = "none";
   }
 }
