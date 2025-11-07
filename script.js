@@ -1,22 +1,10 @@
 const allSearch = "https://dummyjson.com/products?limit=10";
 const specSearch = "https://dummyjson.com/products/search?q=";
 
-
-// function fetchAll() {
-//         fetch(allSearch)
-//         .then((response) => response.json())
-//         .then((data => {
-//             alert(data);
-//             const resultGrids = document.getElementById("resultDisplay");
-//             for (const product of data.products) {
-//                 const item = document.createElement("div")
-//                 item.innerHTML = `<p>${product.category}\n$${product.price}\n${product.rating}\n${product.availabilityStatus}</p>`;
-
-//                 resultGrids.appendChild(item);
-//             }
-//         }))
-//         .catch(console.error);
-// }
+window.onload = () => {
+  const input = document.querySelector("input");
+  input.addEventListener("input", search);
+};
 
 async function fetchAll() {
   try {
@@ -43,18 +31,15 @@ async function fetchAll() {
   }
 }
 
-async function search() {
-  const keyword = document.getElementById("keyword").value.trim();
-  let url;
-  if (!keyword) {
-    url = allSearch;
-  }
-  else {
-    url = specSearch + encodeURIComponent(keyword);
-  }
+async function search(e) {
   try {
+    const keyword = e.target.value.trim();
+    let url;
+    
+    url = `https://dummyjson.com/products/search?q=${encodeURIComponent(keyword)}`;
+
     const response = await fetch(url);
-    alert(response);
+
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -64,10 +49,11 @@ async function search() {
     resultGrids.innerHTML = "";
     for (const product of data.products) {
       const item = document.createElement("div");
-      item.innerHTML = `<img src = ${product.images[0]} alt="Demo Image">
+      item.className = "itemGrid";
+      item.innerHTML = `<img src = ${product.images[0]} alt="Demo Image" class="demoImage">
                         <p>${product.category}</p>
                         <p>$${product.price}</p>
-                        <p>${product.rating}</p>
+                        <p>Rating: ${product.rating}/5.0 stars</p>
                         <p>${product.availabilityStatus}</p>`;
       resultGrids.appendChild(item);
     }

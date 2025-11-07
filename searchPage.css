@@ -13,6 +13,12 @@
     padding: 10px;
     margin: 10px;
 }
+
+
+.demoImage {
+    width: 50%;
+}
+
 @media (max-width:768px) {
     .resultDisplay {
         display: grid;
@@ -23,6 +29,6 @@
 @media only screen and (min-width:992px) {
     .resultDisplay {
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr 1fr;
     }
 }
