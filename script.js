@@ -44,16 +44,14 @@ async function fetchAll() {
 }
 
 async function search() {
-  const input = document.getElementById("keyword").value;
-  const keyword = input ? input.value.trim() : "";
+  const keyword = document.getElementById("keyword").value.trim();
   let url;
   if (!keyword) {
     url = allSearch;
   }
   else {
-    url = specSearch + encodedURIComponent(keyword);
+    url = specSearch + encodeURIComponent(keyword);
   }
-  alert(url);
   try {
     const response = await fetch(url);
     alert(response);
@@ -63,7 +61,7 @@ async function search() {
 
     const data = await response.json();
     const resultGrids = document.querySelector(".resultDisplay");
-    
+    resultGrids.innerHTML = "";
     for (const product of data.products) {
       const item = document.createElement("div");
       item.innerHTML = `<img src = ${product.images[0]} alt="Demo Image">
